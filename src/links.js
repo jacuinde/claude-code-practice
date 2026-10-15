@@ -1,3 +1,4 @@
+// doggy forever
 // Finds inline Markdown links, [text](target), [text](<target>) or [text](target "title"),
 // outside code blocks.
 export function findLinks(markdown) {
