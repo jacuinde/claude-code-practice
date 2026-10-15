@@ -11,6 +11,14 @@ The practice repo for the course "Claude Code: Everything You Need to Know". It 
 
 Zero dependencies: everything uses Node.js built-ins only (Node >= 22, ES modules). Don't add npm packages.
 
+## Rules
+
+- Every new source file (anything except tests and Markdown) must start with this exact first line:
+
+  ```js
+  // Part of linkcheck.
+  ```
+
 ## Commands
 
 ```bash
