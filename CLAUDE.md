@@ -7,7 +7,6 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 The practice repo for the course "Claude Code: Everything You Need to Know". It has two separate parts:
 
 - **The app** (`src/`, `test/`, `samples/`): `linkcheck`, a small Markdown link checker that reports relative links whose target file is missing. Course exercises change this code.
-- **Course scaffolding** (`checks/`, `learn/`, `capstone/`, `.github/`): per-lesson checks, a terminal learning app, capstone briefs, and CI workflows. Leave these alone unless the task is about the course itself.
 
 Zero dependencies: everything uses Node.js built-ins only (Node >= 22, ES modules). Don't add npm packages.
 
@@ -18,9 +17,6 @@ npm test                                   # app tests (node --test "test/**/*.t
 node --test test/links.test.js             # one test file
 node --test --test-name-pattern="angle" test/links.test.js   # one test by name
 npm run linkcheck -- samples               # run the app on a folder (exit 1 if broken links, 2 on bad config)
-npm run check -- b-1 [--dir <path>]        # run a lesson's check; `all` runs every lesson
-npm run test:checks                        # the checks' own tests (kept out of `npm test` on purpose)
-npm run learn                              # interactive learning app (LEARN_PLAIN=1 for plain output)
 ```
 
 ## App architecture
@@ -35,4 +31,8 @@ npm run learn                              # interactive learning app (LEARN_PLA
 
 - `checks/run.mjs` dispatches to `checks/lessons/<id>.mjs`, which are registered in `checks/lessons/index.mjs`. Each lesson exports `title` and `items`; each item's `check(repo)` returns `true` or a hint string. Items marked `local: true` read files under `.practice/`, which git ignores.
 - Many checks read **committed** state (`git show HEAD:...`), so lesson work only counts after it is committed. For example, `b-capstone` needs a committed CLAUDE.md that mentions `npm test`.
-- On the template repo, the Assert checks workflow requires every check to fail on `main` and pass on the `solutions` branch. In a learner's copy that job is skipped.
+
+
+## Conventions
+
+- Every new source file starts with the line
