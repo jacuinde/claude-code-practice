@@ -1,4 +1,5 @@
-// Finds inline Markdown links, [text](target) or [text](target "title"), outside code blocks.
+// Finds inline Markdown links, [text](target), [text](<target>) or [text](target "title"),
+// outside code blocks.
 export function findLinks(markdown) {
   const links = [];
   let inFence = false;
@@ -9,8 +10,8 @@ export function findLinks(markdown) {
     }
     if (inFence) return;
     const prose = line.replace(/`[^`]*`/g, '');
-    for (const m of prose.matchAll(/(?<!!)\[([^\]]*)\]\(([^)\s]+)(?:\s+(?:"[^"]*"|'[^']*'|\([^)]*\)))?\s*\)/g)) {
-      links.push({ text: m[1], target: m[2], line: i + 1 });
+    for (const m of prose.matchAll(/(?<!!)\[([^\]]*)\]\((?:<([^<>]*)>|([^)\s<][^)\s]*))(?:\s+(?:"[^"]*"|'[^']*'|\([^)]*\)))?\s*\)/g)) {
+      links.push({ text: m[1], target: m[2] ?? m[3], line: i + 1 });
     }
   });
   return links;

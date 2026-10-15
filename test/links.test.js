@@ -17,6 +17,11 @@ test('finds links that have a title', () => {
   assert.deepEqual(findLinks(md).map((l) => l.target), ['setup.md', 'faq.md', 'b.md']);
 });
 
+test('finds links whose target is in angle brackets', () => {
+  const md = '[my notes](<my notes.md>)\n[guide](<user guide.md> "Guide")\n';
+  assert.deepEqual(findLinks(md).map((l) => l.target), ['my notes.md', 'user guide.md']);
+});
+
 test('skips images and links inside code', () => {
   const md = '![logo](logo.png)\n`[not](a-link.md)`\n```\n[also not](code.md)\n```\n';
   assert.deepEqual(findLinks(md), []);
