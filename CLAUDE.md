@@ -40,7 +40,3 @@ npm run linkcheck -- samples               # run the app on a folder (exit 1 if 
 - `checks/run.mjs` dispatches to `checks/lessons/<id>.mjs`, which are registered in `checks/lessons/index.mjs`. Each lesson exports `title` and `items`; each item's `check(repo)` returns `true` or a hint string. Items marked `local: true` read files under `.practice/`, which git ignores.
 - Many checks read **committed** state (`git show HEAD:...`), so lesson work only counts after it is committed. For example, `b-capstone` needs a committed CLAUDE.md that mentions `npm test`.
 
-
-## Conventions
-
-- Every new source file starts with the line
