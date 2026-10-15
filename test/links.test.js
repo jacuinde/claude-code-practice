@@ -12,6 +12,11 @@ test('finds inline links with their line numbers', () => {
   assert.deepEqual(links.map((l) => [l.target, l.line]), [['setup.md', 3], ['https://example.com', 3]]);
 });
 
+test('finds links that have a title', () => {
+  const md = '[setup](setup.md "Setup guide")\n[faq](faq.md \'FAQ\')\n[b](b.md (B))\n';
+  assert.deepEqual(findLinks(md).map((l) => l.target), ['setup.md', 'faq.md', 'b.md']);
+});
+
 test('skips images and links inside code', () => {
   const md = '![logo](logo.png)\n`[not](a-link.md)`\n```\n[also not](code.md)\n```\n';
   assert.deepEqual(findLinks(md), []);
